@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MasterMind</title>
+</head>
+<body>
+<datalist id="presets">
+    {% for name, color in colores.items() %}
+        <option value="{{ color }}">{{ name }}</option>
+    {% endfor %}
+</datalist>
+
+{% for intento_numero, intento, resultado in intentos_realizados %}
+    <i>Intento número {{ intento_numero }}</i>
+    <form>
+        {{ resultado | safe }}
+    </form>
+    <br>
+{% endfor %}
+
+<br>
+<div>
+  <i>Jugada</i>
+  <br>
+  <form action="/" method="post">
+      {% for i in range(4) %}
+          <input type="color" list="presets" name="intento[]" value="{{ intento[i] if intento else '' }}">
+      {% endfor %}
+      <br>
+      <br>
+      <input type="submit" value="Intentar">
+  </form>
+  <form action="/reiniciar" method="post">
+      <input type="submit" value="Reiniciar">
+  </form>
+</div>
+</body>
+</html>
